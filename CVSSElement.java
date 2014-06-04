@@ -445,4 +445,176 @@ public class CVSSElement {
 
         return scores;
     }
+
+    /**
+     * Returns a string representation of the base vector
+     * @return A string representation of the base vector
+     */
+    public String getBaseScoreVector() {
+        try {
+            verifyBaseParameters();
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
+
+        String vector = "";
+
+        if (ACCESS_VECTOR == ACCESS_VECTOR_REQUIRES_LOCAL_ACCESS)
+            vector += "AV:L/";
+        if (ACCESS_VECTOR == ACCESS_VECTOR_ADJACENT_NETWORK_ACCESSIBLE)
+            vector += "AV:A/";
+        if (ACCESS_VECTOR == ACCESS_VECTOR_NETWORK_ACCESSIBLE)
+            vector += "AV:N/";
+
+        if (ACCESS_COMPLEXITY == ACCESS_COMPLEXITY_LOW)
+            vector += "AC:L/";
+        if (ACCESS_COMPLEXITY == ACCESS_COMPLEXITY_MEDIUM)
+            vector += "AC:M/";
+        if (ACCESS_COMPLEXITY == ACCESS_COMPLEXITY_HIGH)
+            vector += "AC:H/";
+
+        if (AUTHENTICATION == AUTHENTICATION_REQUIRES_NO_AUTHENTICATION)
+            vector += "Au:N/";
+        if (AUTHENTICATION == AUTHENTICATION_REQUIRES_SINGLE_INSTANCE)
+            vector += "Au:S/";
+        if (AUTHENTICATION == AUTHENTICATION_REQUIRES_MULTIPLE_INSTANCES)
+            vector += "Au:M/";
+
+        if (CONFIDENTIALITY_IMPACT == CONFIDENTIALITY_IMPACT_NONE)
+            vector += "C:N/";
+        if (CONFIDENTIALITY_IMPACT == CONFIDENTIALITY_IMPACT_PARTIAL)
+            vector += "C:P/";
+        if (CONFIDENTIALITY_IMPACT == CONFIDENTIALITY_IMPACT_COMPLETE)
+            vector += "C:C/";
+
+        if (INTEGRITY_IMPACT == INTEGRITY_IMPACT_NONE)
+            vector += "I:N/";
+        if (INTEGRITY_IMPACT == INTEGRITY_IMPACT_PARTIAL)
+            vector += "I:P/";
+        if (INTEGRITY_IMPACT == INTEGRITY_IMPACT_COMPLETE)
+            vector += "I:C/";
+
+        if (AVAILABILITY_IMPACT == AVAILABILITY_IMPACT_NONE)
+            vector += "A:N";
+        if (AVAILABILITY_IMPACT == AVAILABILITY_IMPACT_PARTIAL)
+            vector += "A:P";
+        if (AVAILABILITY_IMPACT == AVAILABILITY_IMPACT_COMPLETE)
+            vector += "A:C";
+
+        return vector;
+    }
+
+    /**
+     * Returns a string representation of the temporal vector
+     * @return A string representation of the temporal vector
+     */
+    public String getTemporalVector() {
+        try {
+            verifyAllParameters();
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
+
+        String vector = "";
+
+        if (EXPLOITABILITY == EXPLOITABILITY_UNPROVEN)
+            vector += "E:U/";
+        if (EXPLOITABILITY == EXPLOITABILITY_PROOF_OF_CONCEPT)
+            vector += "E:POC/";
+        if (EXPLOITABILITY == EXPLOITABILITY_FUNCTIONAL)
+            vector += "E:F/";
+        if (EXPLOITABILITY == EXPLOITABILITY_HIGH)
+            vector += "E:H/";
+        if (EXPLOITABILITY == EXPLOITABILITY_NOT_DEFINED)
+            vector += "E:ND/";
+
+        if (REMEDIATION_LEVEL == REMEDIATION_LEVEL_OFFICIAL_FIX)
+            vector += "RL:OF/";
+        if (REMEDIATION_LEVEL == REMEDIATION_LEVEL_TEMPORARY_FIX)
+            vector += "RL:TF/";
+        if (REMEDIATION_LEVEL == REMEDIATION_LEVEL_WORKAROUND)
+            vector += "RL:W/";
+        if (REMEDIATION_LEVEL == REMEDIATION_LEVEL_UNAVAILABLE)
+            vector += "RL:U/";
+        if (REMEDIATION_LEVEL == REMEDIATION_LEVEL_NOT_DEFINED)
+            vector += "RL:ND/";
+
+        if (REPORT_CONFIDENCE == REPORT_CONFIDENCE_UNCONFIRMED)
+            vector += "RC:UC";
+        if (REPORT_CONFIDENCE == REPORT_CONFIDENCE_UNCORROBORATED)
+            vector += "RC:UR";
+        if (REPORT_CONFIDENCE == REPORT_CONFIDENCE_CONFIRMED)
+            vector += "RC:C";
+        if (REPORT_CONFIDENCE == REPORT_CONFIDENCE_NOT_DEFINED)
+            vector += "RC:ND";
+
+        return vector;
+    }
+
+    /**
+     * Returns a string representation of the environmental vector
+     * @return A string representation of teh environmental vector
+     */
+    public String getEnviornmentalVector() {
+        try {
+            verifyAllParameters();
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
+
+        String vector = "";
+
+        if (COLLATERAL_DAMAGE == COLLATERAL_DAMAGE_NONE)
+            vector += "CDP:N/";
+        if (COLLATERAL_DAMAGE == COLLATERAL_DAMAGE_LOW)
+            vector += "CDP:L/";
+        if (COLLATERAL_DAMAGE == COLLATERAL_DAMAGE_LOW_MEDIUM)
+            vector += "CDP:LM/";
+        if (COLLATERAL_DAMAGE == COLLATERAL_DAMAGE_MEDIUM_HIGH)
+            vector += "CDP:MH/";
+        if (COLLATERAL_DAMAGE == COLLATERAL_DAMAGE_HIGH)
+            vector += "CDP:H/";
+        if (COLLATERAL_DAMAGE == COLLATERAL_DAMAGE_NOT_DEFINED)
+            vector += "CDP:ND/";
+
+        if (TARGET_DISTRIBUTION == TARGET_DISTRIBUTION_NONE)
+            vector += "TD:N/";
+        if (TARGET_DISTRIBUTION == TARGET_DISTRIBUTION_LOW)
+            vector += "TD:L/";
+        if (TARGET_DISTRIBUTION == TARGET_DISTRIBUTION_MEDIUM)
+            vector += "TD:M/";
+        if (TARGET_DISTRIBUTION == TARGET_DISTRIBUTION_HIGH)
+            vector += "TD:H/";
+        if (TARGET_DISTRIBUTION == TARGET_DISTRIBUTION_NOT_DEFINED)
+            vector += "TD:ND/";
+
+        if (CONFIDENTIALITY_REQUIREMENT == CONFIDENTIALITY_REQUIREMENT_LOW)
+            vector += "CR:L/";
+        if (CONFIDENTIALITY_REQUIREMENT == CONFIDENTIALITY_REQUIREMENT_MEDIUM)
+            vector += "CR:M/";
+        if (CONFIDENTIALITY_REQUIREMENT == CONFIDENTIALITY_REQUIREMENT_HIGH)
+            vector += "CR:H/";
+        if (CONFIDENTIALITY_REQUIREMENT == CONFIDENTIALITY_REQUIREMENT_NOT_DEFINED)
+            vector += "CR:ND/";
+
+        if (INTEGRITY_REQUIREMENT == INTEGRITY_REQUIREMENT_LOW)
+            vector += "IR:L/";
+        if (INTEGRITY_REQUIREMENT == INTEGRITY_REQUIREMENT_MEDIUM)
+            vector += "IR:M/";
+        if (INTEGRITY_REQUIREMENT == INTEGRITY_REQUIREMENT_HIGH)
+            vector += "IR:H/";
+        if (INTEGRITY_REQUIREMENT == INTEGRITY_REQUIREMENT_NOT_DEFINED)
+            vector += "IR:ND/";
+
+        if (AVAILABILITY_REQUIREMENT == AVAILABILITY_REQUIREMENT_LOW)
+            vector += "AR:L";
+        if (AVAILABILITY_REQUIREMENT == AVAILABILITY_REQUIREMENT_MEDIUM)
+            vector += "AR:M";
+        if (AVAILABILITY_REQUIREMENT == AVAILABILITY_REQUIREMENT_HIGH)
+            vector += "AR:H";
+        if (AVAILABILITY_REQUIREMENT == AVAILABILITY_REQUIREMENT_NOT_DEFINED)
+            vector += "AR:ND";
+
+        return vector;
+    }
 }
