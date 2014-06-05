@@ -28,116 +28,131 @@
 
 package org.yagemann.cvss;
 
+import java.net.IDN;
+
 public class CVSSElement {
+
+    /**
+     * Class for representing the variables. Simply contains an id and value pair
+     */
+    private class CVSSVariable {
+        public int ID;
+        public double VALUE;
+
+        CVSSVariable(int id, double value) {
+            ID = id;
+            VALUE = value;
+        }
+    }
 
     /* Begin CVSS parameters */
 
     // Base variables
-    private double ACCESS_VECTOR;
-    private double ACCESS_COMPLEXITY;
-    private double AUTHENTICATION;
-    private double CONFIDENTIALITY_IMPACT;
-    private double INTEGRITY_IMPACT;
-    private double AVAILABILITY_IMPACT;
+    private CVSSVariable ACCESS_VECTOR;
+    private CVSSVariable ACCESS_COMPLEXITY;
+    private CVSSVariable AUTHENTICATION;
+    private CVSSVariable CONFIDENTIALITY_IMPACT;
+    private CVSSVariable INTEGRITY_IMPACT;
+    private CVSSVariable AVAILABILITY_IMPACT;
 
     // Temporal variables
-    private double EXPLOITABILITY;
-    private double REMEDIATION_LEVEL;
-    private double REPORT_CONFIDENCE;
+    private CVSSVariable EXPLOITABILITY;
+    private CVSSVariable REMEDIATION_LEVEL;
+    private CVSSVariable REPORT_CONFIDENCE;
 
     // Environmental variables
-    private double COLLATERAL_DAMAGE;
-    private double TARGET_DISTRIBUTION;
-    private double CONFIDENTIALITY_REQUIREMENT;
-    private double INTEGRITY_REQUIREMENT;
-    private double AVAILABILITY_REQUIREMENT;
+    private CVSSVariable COLLATERAL_DAMAGE;
+    private CVSSVariable TARGET_DISTRIBUTION;
+    private CVSSVariable CONFIDENTIALITY_REQUIREMENT;
+    private CVSSVariable INTEGRITY_REQUIREMENT;
+    private CVSSVariable AVAILABILITY_REQUIREMENT;
 
     /* End CVSS paramters */
 
     /* Begin Constants */
 
     // Access Vector
-    final public double ACCESS_VECTOR_REQUIRES_LOCAL_ACCESS = 0.395;
-    final public double ACCESS_VECTOR_ADJACENT_NETWORK_ACCESSIBLE = 0.646;
-    final public double ACCESS_VECTOR_NETWORK_ACCESSIBLE = 1.0;
+    final public CVSSVariable ACCESS_VECTOR_REQUIRES_LOCAL_ACCESS = new CVSSVariable(0, 0.395);
+    final public CVSSVariable ACCESS_VECTOR_ADJACENT_NETWORK_ACCESSIBLE = new CVSSVariable(1, 0.646);
+    final public CVSSVariable ACCESS_VECTOR_NETWORK_ACCESSIBLE = new CVSSVariable(2, 1.0);
 
     // Access Complexity
-    final public double ACCESS_COMPLEXITY_HIGH = 0.35;
-    final public double ACCESS_COMPLEXITY_MEDIUM = 0.61;
-    final public double ACCESS_COMPLEXITY_LOW = 0.71;
+    final public CVSSVariable ACCESS_COMPLEXITY_HIGH = new CVSSVariable(0, 0.35);
+    final public CVSSVariable ACCESS_COMPLEXITY_MEDIUM = new CVSSVariable(1, 0.61);
+    final public CVSSVariable ACCESS_COMPLEXITY_LOW = new CVSSVariable(2, 0.71);
 
     // Authentication
-    final public double AUTHENTICATION_REQUIRES_MULTIPLE_INSTANCES = 0.45;
-    final public double AUTHENTICATION_REQUIRES_SINGLE_INSTANCE = 0.56;
-    final public double AUTHENTICATION_REQUIRES_NO_AUTHENTICATION = 0.704;
+    final public CVSSVariable AUTHENTICATION_REQUIRES_MULTIPLE_INSTANCES = new CVSSVariable(0, 0.45);
+    final public CVSSVariable AUTHENTICATION_REQUIRES_SINGLE_INSTANCE = new CVSSVariable (1, 0.56);
+    final public CVSSVariable AUTHENTICATION_REQUIRES_NO_AUTHENTICATION = new CVSSVariable(2, 0.704);
 
     // Confidentiality Impact
-    final public double CONFIDENTIALITY_IMPACT_NONE = 0.0;
-    final public double CONFIDENTIALITY_IMPACT_PARTIAL = 0.275;
-    final public double CONFIDENTIALITY_IMPACT_COMPLETE = 0.660;
+    final public CVSSVariable CONFIDENTIALITY_IMPACT_NONE = new CVSSVariable(0, 0.0);
+    final public CVSSVariable CONFIDENTIALITY_IMPACT_PARTIAL = new CVSSVariable(1, 0.275);
+    final public CVSSVariable CONFIDENTIALITY_IMPACT_COMPLETE = new CVSSVariable(2, 0.660);
 
     // Integrity Impact
-    final public double INTEGRITY_IMPACT_NONE = 0.0;
-    final public double INTEGRITY_IMPACT_PARTIAL = 0.275;
-    final public double INTEGRITY_IMPACT_COMPLETE = 0.660;
+    final public CVSSVariable INTEGRITY_IMPACT_NONE = new CVSSVariable(0, 0.0);
+    final public CVSSVariable INTEGRITY_IMPACT_PARTIAL = new CVSSVariable(1, 0.275);
+    final public CVSSVariable INTEGRITY_IMPACT_COMPLETE = new CVSSVariable(2, 0.660);
 
     // Availability Impact
-    final public double AVAILABILITY_IMPACT_NONE = 0.0;
-    final public double AVAILABILITY_IMPACT_PARTIAL = 0.275;
-    final public double AVAILABILITY_IMPACT_COMPLETE = 0.660;
+    final public CVSSVariable AVAILABILITY_IMPACT_NONE = new CVSSVariable(0, 0.0);
+    final public CVSSVariable AVAILABILITY_IMPACT_PARTIAL = new CVSSVariable(1, 0.275);
+    final public CVSSVariable AVAILABILITY_IMPACT_COMPLETE = new CVSSVariable(2, 0.660);
 
     // Exploitability
-    final public double EXPLOITABILITY_UNPROVEN = 0.85;
-    final public double EXPLOITABILITY_PROOF_OF_CONCEPT = 0.9;
-    final public double EXPLOITABILITY_FUNCTIONAL = 0.95;
-    final public double EXPLOITABILITY_HIGH = 1.0;
-    final public double EXPLOITABILITY_NOT_DEFINED = 1.0;
+    final public CVSSVariable EXPLOITABILITY_UNPROVEN = new CVSSVariable(0, 0.85);
+    final public CVSSVariable EXPLOITABILITY_PROOF_OF_CONCEPT = new CVSSVariable(1, 0.9);
+    final public CVSSVariable EXPLOITABILITY_FUNCTIONAL = new CVSSVariable(2, 0.95);
+    final public CVSSVariable EXPLOITABILITY_HIGH = new CVSSVariable(3, 1.0);
+    final public CVSSVariable EXPLOITABILITY_NOT_DEFINED = new CVSSVariable(4, 1.0);
 
     // Remediation Level
-    final public double REMEDIATION_LEVEL_OFFICIAL_FIX = 0.87;
-    final public double REMEDIATION_LEVEL_TEMPORARY_FIX = 0.9;
-    final public double REMEDIATION_LEVEL_WORKAROUND = 0.95;
-    final public double REMEDIATION_LEVEL_UNAVAILABLE = 1.0;
-    final public double REMEDIATION_LEVEL_NOT_DEFINED = 1.0;
+    final public CVSSVariable REMEDIATION_LEVEL_OFFICIAL_FIX = new CVSSVariable(0, 0.87);
+    final public CVSSVariable REMEDIATION_LEVEL_TEMPORARY_FIX = new CVSSVariable(1, 0.9);
+    final public CVSSVariable REMEDIATION_LEVEL_WORKAROUND = new CVSSVariable(2, 0.95);
+    final public CVSSVariable REMEDIATION_LEVEL_UNAVAILABLE = new CVSSVariable(3, 1.0);
+    final public CVSSVariable REMEDIATION_LEVEL_NOT_DEFINED = new CVSSVariable(4, 1.0);
 
     // Report Confidence
-    final public double REPORT_CONFIDENCE_UNCONFIRMED = 0.9;
-    final public double REPORT_CONFIDENCE_UNCORROBORATED = 0.95;
-    final public double REPORT_CONFIDENCE_CONFIRMED = 1.0;
-    final public double REPORT_CONFIDENCE_NOT_DEFINED = 1.0;
+    final public CVSSVariable REPORT_CONFIDENCE_UNCONFIRMED = new CVSSVariable(0, 0.9);
+    final public CVSSVariable REPORT_CONFIDENCE_UNCORROBORATED = new CVSSVariable(1, 0.95);
+    final public CVSSVariable REPORT_CONFIDENCE_CONFIRMED = new CVSSVariable(2, 1.0);
+    final public CVSSVariable REPORT_CONFIDENCE_NOT_DEFINED = new CVSSVariable(3, 1.0);
 
     // Collateral Damage
-    final public double COLLATERAL_DAMAGE_NONE = 0.0;
-    final public double COLLATERAL_DAMAGE_LOW = 0.1;
-    final public double COLLATERAL_DAMAGE_LOW_MEDIUM = 0.3;
-    final public double COLLATERAL_DAMAGE_MEDIUM_HIGH = 0.4;
-    final public double COLLATERAL_DAMAGE_HIGH = 0.5;
-    final public double COLLATERAL_DAMAGE_NOT_DEFINED = 0.0;
+    final public CVSSVariable COLLATERAL_DAMAGE_NONE = new CVSSVariable(0, 0.0);
+    final public CVSSVariable COLLATERAL_DAMAGE_LOW = new CVSSVariable(1, 0.1);
+    final public CVSSVariable COLLATERAL_DAMAGE_LOW_MEDIUM = new CVSSVariable(2, 0.3);
+    final public CVSSVariable COLLATERAL_DAMAGE_MEDIUM_HIGH = new CVSSVariable(3, 0.4);
+    final public CVSSVariable COLLATERAL_DAMAGE_HIGH = new CVSSVariable(4, 0.5);
+    final public CVSSVariable COLLATERAL_DAMAGE_NOT_DEFINED = new CVSSVariable(5, 0.0);
 
     // Target Distribution
-    final public double TARGET_DISTRIBUTION_NONE = 0.0;
-    final public double TARGET_DISTRIBUTION_LOW = 0.25;
-    final public double TARGET_DISTRIBUTION_MEDIUM = 0.75;
-    final public double TARGET_DISTRIBUTION_HIGH = 1.0;
-    final public double TARGET_DISTRIBUTION_NOT_DEFINED = 1.0;
+    final public CVSSVariable TARGET_DISTRIBUTION_NONE = new CVSSVariable(0, 0.0);
+    final public CVSSVariable TARGET_DISTRIBUTION_LOW = new CVSSVariable(1, 0.25);
+    final public CVSSVariable TARGET_DISTRIBUTION_MEDIUM = new CVSSVariable(2, 0.75);
+    final public CVSSVariable TARGET_DISTRIBUTION_HIGH = new CVSSVariable(3, 1.0);
+    final public CVSSVariable TARGET_DISTRIBUTION_NOT_DEFINED = new CVSSVariable(4, 1.0);
 
     // Confidentiality Requirement
-    final public double CONFIDENTIALITY_REQUIREMENT_LOW = 0.5;
-    final public double CONFIDENTIALITY_REQUIREMENT_MEDIUM = 1.0;
-    final public double CONFIDENTIALITY_REQUIREMENT_HIGH = 1.51;
-    final public double CONFIDENTIALITY_REQUIREMENT_NOT_DEFINED = 1.0;
+    final public CVSSVariable CONFIDENTIALITY_REQUIREMENT_LOW = new CVSSVariable(0, 0.5);
+    final public CVSSVariable CONFIDENTIALITY_REQUIREMENT_MEDIUM = new CVSSVariable(1, 1.0);
+    final public CVSSVariable CONFIDENTIALITY_REQUIREMENT_HIGH = new CVSSVariable(2, 1.51);
+    final public CVSSVariable CONFIDENTIALITY_REQUIREMENT_NOT_DEFINED = new CVSSVariable(3, 1.0);
 
     // Integrity Requirement
-    final public double INTEGRITY_REQUIREMENT_LOW = 0.5;
-    final public double INTEGRITY_REQUIREMENT_MEDIUM = 1.0;
-    final public double INTEGRITY_REQUIREMENT_HIGH = 1.51;
-    final public double INTEGRITY_REQUIREMENT_NOT_DEFINED = 1.0;
+    final public CVSSVariable INTEGRITY_REQUIREMENT_LOW = new CVSSVariable(0, 0.5);
+    final public CVSSVariable INTEGRITY_REQUIREMENT_MEDIUM = new CVSSVariable(1, 1.0);
+    final public CVSSVariable INTEGRITY_REQUIREMENT_HIGH = new CVSSVariable(2, 1.51);
+    final public CVSSVariable INTEGRITY_REQUIREMENT_NOT_DEFINED = new CVSSVariable(3, 1.0);
 
     // Availability Requirement
-    final public double AVAILABILITY_REQUIREMENT_LOW = 0.5;
-    final public double AVAILABILITY_REQUIREMENT_MEDIUM = 1.0;
-    final public double AVAILABILITY_REQUIREMENT_HIGH = 1.51;
-    final public double AVAILABILITY_REQUIREMENT_NOT_DEFINED = 1.0;
+    final public CVSSVariable AVAILABILITY_REQUIREMENT_LOW = new CVSSVariable(0, 0.5);
+    final public CVSSVariable AVAILABILITY_REQUIREMENT_MEDIUM = new CVSSVariable(1, 1.0);
+    final public CVSSVariable AVAILABILITY_REQUIREMENT_HIGH = new CVSSVariable(2, 1.51);
+    final public CVSSVariable AVAILABILITY_REQUIREMENT_NOT_DEFINED = new CVSSVariable(3, 1.0);
 
     /* End Constants */
 
@@ -146,30 +161,30 @@ public class CVSSElement {
      * Takes no parameters and initializes everything to NaN
      */
     public void CVSSElement() {
-        ACCESS_VECTOR = Double.NaN;
-        ACCESS_COMPLEXITY = Double.NaN;
-        AUTHENTICATION = Double.NaN;
-        CONFIDENTIALITY_IMPACT = Double.NaN;
-        INTEGRITY_IMPACT = Double.NaN;
-        AVAILABILITY_IMPACT = Double.NaN;
+        ACCESS_VECTOR = null;
+        ACCESS_COMPLEXITY = null;
+        AUTHENTICATION = null;
+        CONFIDENTIALITY_IMPACT = null;
+        INTEGRITY_IMPACT = null;
+        AVAILABILITY_IMPACT = null;
 
-        EXPLOITABILITY = Double.NaN;
-        REMEDIATION_LEVEL = Double.NaN;
-        REPORT_CONFIDENCE = Double.NaN;
+        EXPLOITABILITY = null;
+        REMEDIATION_LEVEL = null;
+        REPORT_CONFIDENCE = null;
 
-        COLLATERAL_DAMAGE = Double.NaN;
-        TARGET_DISTRIBUTION = Double.NaN;
-        CONFIDENTIALITY_REQUIREMENT = Double.NaN;
-        INTEGRITY_REQUIREMENT = Double.NaN;
-        AVAILABILITY_REQUIREMENT = Double.NaN;
+        COLLATERAL_DAMAGE = null;
+        TARGET_DISTRIBUTION = null;
+        CONFIDENTIALITY_REQUIREMENT = null;
+        INTEGRITY_REQUIREMENT = null;
+        AVAILABILITY_REQUIREMENT = null;
     }
 
     /**
      * Constructor for only setting base variables
      */
-    public void CVSSElement(double accessVector, double accessComplexity, double authentication,
-                            double confidentialityImpact, double integrityImpact,
-                            double availabilityImpact) {
+    public void CVSSElement(CVSSVariable accessVector, CVSSVariable accessComplexity, CVSSVariable authentication,
+                            CVSSVariable confidentialityImpact, CVSSVariable integrityImpact,
+                            CVSSVariable availabilityImpact) {
         ACCESS_VECTOR = accessVector;
         ACCESS_COMPLEXITY = accessComplexity;
         AUTHENTICATION = authentication;
@@ -177,27 +192,27 @@ public class CVSSElement {
         INTEGRITY_IMPACT = integrityImpact;
         AVAILABILITY_IMPACT = availabilityImpact;
 
-        EXPLOITABILITY = Double.NaN;
-        REMEDIATION_LEVEL = Double.NaN;
-        REPORT_CONFIDENCE = Double.NaN;
+        EXPLOITABILITY = null;
+        REMEDIATION_LEVEL = null;
+        REPORT_CONFIDENCE = null;
 
-        COLLATERAL_DAMAGE = Double.NaN;
-        TARGET_DISTRIBUTION = Double.NaN;
-        CONFIDENTIALITY_REQUIREMENT = Double.NaN;
-        INTEGRITY_REQUIREMENT = Double.NaN;
-        AVAILABILITY_REQUIREMENT = Double.NaN;
+        COLLATERAL_DAMAGE = null;
+        TARGET_DISTRIBUTION = null;
+        CONFIDENTIALITY_REQUIREMENT = null;
+        INTEGRITY_REQUIREMENT = null;
+        AVAILABILITY_REQUIREMENT = null;
     }
 
     /**
      * Constructor for setting all variables
      */
-    public void CVSSElement(double accessVector, double accessComplexity, double authentication,
-                            double confidentialityImpact, double integrityImpact,
-                            double availabilityImpact, double exploitability,
-                            double remediationLevel, double reportConfidence,
-                            double collateralDamage, double targetDistribution,
-                            double confidentialityRequirement, double integrityRequirement,
-                            double availabilityRequirement) {
+    public void CVSSElement(CVSSVariable accessVector, CVSSVariable accessComplexity, CVSSVariable authentication,
+                            CVSSVariable confidentialityImpact, CVSSVariable integrityImpact,
+                            CVSSVariable availabilityImpact, CVSSVariable exploitability,
+                            CVSSVariable remediationLevel, CVSSVariable reportConfidence,
+                            CVSSVariable collateralDamage, CVSSVariable targetDistribution,
+                            CVSSVariable confidentialityRequirement, CVSSVariable integrityRequirement,
+                            CVSSVariable availabilityRequirement) {
         ACCESS_VECTOR = accessVector;
         ACCESS_COMPLEXITY = accessComplexity;
         AUTHENTICATION = authentication;
@@ -218,69 +233,86 @@ public class CVSSElement {
 
     /* Begin Getters */
 
-    public double getAccessVector() {return ACCESS_VECTOR;}
-    public double getAccessComplexity() {return ACCESS_COMPLEXITY;}
-    public double getAuthentication() {return AUTHENTICATION;}
-    public double getConfidentialityImpact() {return CONFIDENTIALITY_IMPACT;}
-    public double getIntegrityImpact() {return INTEGRITY_IMPACT;}
-    public double getAvailabilityImpact() {return AVAILABILITY_IMPACT;}
+    public int getAccessVectorId() {return ACCESS_VECTOR.ID;}
+    public int getAccessComplexityId() {return ACCESS_COMPLEXITY.ID;}
+    public int getAuthenticationId() {return AUTHENTICATION.ID;}
+    public int getConfidentialityImpactId() {return CONFIDENTIALITY_IMPACT.ID;}
+    public int getIntegrityImpactId() {return INTEGRITY_IMPACT.ID;}
+    public int getAvailabilityImpactId() {return AVAILABILITY_IMPACT.ID;}
 
-    public double getExploitability() {return EXPLOITABILITY;}
-    public double getRemediationLevel() {return REMEDIATION_LEVEL;}
-    public double getReportConfidence() {return REPORT_CONFIDENCE;}
+    public double getAccessVectorValue() {return ACCESS_VECTOR.VALUE;}
+    public double getAccessComplexityValue() {return ACCESS_COMPLEXITY.VALUE;}
+    public double getAuthenticationValue() {return AUTHENTICATION.VALUE;}
+    public double getConfidentialityImpactValue() {return CONFIDENTIALITY_IMPACT.VALUE;}
+    public double getIntegrityImpactValue() {return INTEGRITY_IMPACT.VALUE;}
+    public double getAvailabilityImpactValue() {return AVAILABILITY_IMPACT.VALUE;}
 
-    public double getCollateralDamage() {return COLLATERAL_DAMAGE;}
-    public double getTargetDistribution() {return TARGET_DISTRIBUTION;}
-    public double getConfidentialityRequirement() {return CONFIDENTIALITY_REQUIREMENT;}
-    public double getIntegrityRequirement() {return INTEGRITY_REQUIREMENT;}
-    public double getAvailabilityRequirement() {return AVAILABILITY_REQUIREMENT;}
+    public int getExploitabilityId() {return EXPLOITABILITY.ID;}
+    public int getRemediationLevelId() {return REMEDIATION_LEVEL.ID;}
+    public int getReportConfidenceId() {return REPORT_CONFIDENCE.ID;}
+
+    public double getExploitabilityValue() {return EXPLOITABILITY.VALUE;}
+    public double getRemediationLevelValue() {return REMEDIATION_LEVEL.VALUE;}
+    public double getReportConfidenceValue() {return REPORT_CONFIDENCE.VALUE;}
+
+    public int getCollateralDamageId() {return COLLATERAL_DAMAGE.ID;}
+    public int getTargetDistributionId() {return TARGET_DISTRIBUTION.ID;}
+    public int getConfidentialityRequirementId() {return CONFIDENTIALITY_REQUIREMENT.ID;}
+    public int getIntegrityRequirementId() {return INTEGRITY_REQUIREMENT.ID;}
+    public int getAvailabilityRequirementId() {return AVAILABILITY_REQUIREMENT.ID;}
+
+    public double getCollateralDamageValue() {return COLLATERAL_DAMAGE.VALUE;}
+    public double getTargetDistributionValue() {return TARGET_DISTRIBUTION.VALUE;}
+    public double getConfidentialityRequirementValue() {return CONFIDENTIALITY_REQUIREMENT.VALUE;}
+    public double getIntegrityRequirementValue() {return INTEGRITY_REQUIREMENT.VALUE;}
+    public double getAvailabilityRequirementValue() {return AVAILABILITY_REQUIREMENT.VALUE;}
 
     /* End Getters */
 
     /* Begin Setters */
 
-    public void setAccessVector(double accessVector) {
-        ACCESS_VECTOR= accessVector;
+    public void setAccessVector(CVSSVariable accessVector) {
+        ACCESS_VECTOR = accessVector;
     }
-    public void setAccessComplexity(double accessComplexity) {
+    public void setAccessComplexity(CVSSVariable accessComplexity) {
         ACCESS_COMPLEXITY = accessComplexity;
     }
-    public void setAuthentication(double authentication) {
+    public void setAuthentication(CVSSVariable authentication) {
         AUTHENTICATION = authentication;
     }
-    public void setConfidentialityImpact(double confidentialityImpact) {
+    public void setConfidentialityImpact(CVSSVariable confidentialityImpact) {
         CONFIDENTIALITY_IMPACT = confidentialityImpact;
     }
-    public void setIntegrityImpact(double integrityImpact) {
+    public void setIntegrityImpact(CVSSVariable integrityImpact) {
         INTEGRITY_IMPACT = integrityImpact;
     }
-    public void setAvailabilityImpact(double availabilityImpact) {
+    public void setAvailabilityImpact(CVSSVariable availabilityImpact) {
         AVAILABILITY_IMPACT = availabilityImpact;
     }
 
-    public void setExploitability(double exploitability) {
+    public void setExploitability(CVSSVariable exploitability) {
         EXPLOITABILITY = exploitability;
     }
-    public void setRemediationLevel(double remediationLevel) {
+    public void setRemediationLevel(CVSSVariable remediationLevel) {
         REMEDIATION_LEVEL = remediationLevel;
     }
-    public void setReportConfidence(double reportConfidence) {
+    public void setReportConfidence(CVSSVariable reportConfidence) {
         REPORT_CONFIDENCE = reportConfidence;
     }
 
-    public void setCollateralDamage(double collateralDamage) {
+    public void setCollateralDamage(CVSSVariable collateralDamage) {
         COLLATERAL_DAMAGE = collateralDamage;
     }
-    public void setTargetDistribution(double targetDistribution) {
+    public void setTargetDistribution(CVSSVariable targetDistribution) {
         TARGET_DISTRIBUTION = targetDistribution;
     }
-    public void setConfidentialityRequirement(double confidentialityRequirement) {
+    public void setConfidentialityRequirement(CVSSVariable confidentialityRequirement) {
         CONFIDENTIALITY_REQUIREMENT = confidentialityRequirement;
     }
-    public void setIntegrityRequirement(double integrityRequirement) {
+    public void setIntegrityRequirement(CVSSVariable integrityRequirement) {
         INTEGRITY_REQUIREMENT = integrityRequirement;
     }
-    public void setAvailabilityRequirement(double availabilityRequirement) {
+    public void setAvailabilityRequirement(CVSSVariable availabilityRequirement) {
         AVAILABILITY_REQUIREMENT = availabilityRequirement;
     }
 
@@ -293,22 +325,22 @@ public class CVSSElement {
      * @return True if base parameters have been set, otherwise throws IllegalArgumentException
      */
     private boolean verifyBaseParameters() {
-        if (ACCESS_VECTOR == Double.NaN)
+        if (ACCESS_VECTOR == null)
             throw new IllegalArgumentException("Access Vector has not been set");
 
-        if (ACCESS_COMPLEXITY == Double.NaN)
+        if (ACCESS_COMPLEXITY == null)
             throw new IllegalArgumentException("Access Complexity has not been set");
 
-        if (AUTHENTICATION == Double.NaN)
+        if (AUTHENTICATION == null)
             throw new IllegalArgumentException("Authentication has not been set");
 
-        if (CONFIDENTIALITY_IMPACT == Double.NaN)
+        if (CONFIDENTIALITY_IMPACT == null)
             throw new IllegalArgumentException("Confidentiality Impact has not been set");
 
-        if (INTEGRITY_IMPACT == Double.NaN)
+        if (INTEGRITY_IMPACT == null)
             throw new IllegalArgumentException("Integrity Impact has not been set");
 
-        if (AVAILABILITY_IMPACT == Double.NaN)
+        if (AVAILABILITY_IMPACT == null)
             throw new IllegalArgumentException("Availability Impact has not been set");
 
         return true;
@@ -327,28 +359,28 @@ public class CVSSElement {
         }
 
         // Verify optional parameters have been set
-        if (EXPLOITABILITY == Double.NaN)
+        if (EXPLOITABILITY == null)
             throw new IllegalArgumentException("Exploitability has not been set");
 
-        if (REMEDIATION_LEVEL == Double.NaN)
+        if (REMEDIATION_LEVEL == null)
             throw new IllegalArgumentException("Remediation Level has not been set");
 
-        if (REPORT_CONFIDENCE == Double.NaN)
+        if (REPORT_CONFIDENCE == null)
             throw new IllegalArgumentException("Report Confidence has not been set");
 
-        if (COLLATERAL_DAMAGE == Double.NaN)
+        if (COLLATERAL_DAMAGE == null)
             throw new IllegalArgumentException("Collateral Damage has not been set");
 
-        if (TARGET_DISTRIBUTION == Double.NaN)
+        if (TARGET_DISTRIBUTION == null)
             throw new IllegalArgumentException("Target Distribution has not been set");
 
-        if (CONFIDENTIALITY_REQUIREMENT == Double.NaN)
+        if (CONFIDENTIALITY_REQUIREMENT == null)
             throw new IllegalArgumentException("Confidentiality Requirement has not been set");
 
-        if (INTEGRITY_REQUIREMENT == Double.NaN)
+        if (INTEGRITY_REQUIREMENT == null)
             throw new IllegalArgumentException("Integrity Requirement has not been set");
 
-        if (AVAILABILITY_REQUIREMENT == Double.NaN)
+        if (AVAILABILITY_REQUIREMENT == null)
             throw new IllegalArgumentException("Availability Requirement has not been set");
 
         return true;
@@ -369,9 +401,9 @@ public class CVSSElement {
         double score, f;
 
         // Calculate base score
-        double impact = 10.41*(1-(1-CONFIDENTIALITY_IMPACT)*(1-INTEGRITY_IMPACT)*(1-AVAILABILITY_IMPACT));
+        double impact = 10.41*(1-(1-CONFIDENTIALITY_IMPACT.VALUE)*(1-INTEGRITY_IMPACT.VALUE)*(1-AVAILABILITY_IMPACT.VALUE));
         if (impact == 0) f = 0; else f = 1.176;
-        double exploitability = 20*ACCESS_VECTOR*ACCESS_COMPLEXITY*AUTHENTICATION;
+        double exploitability = 20 * ACCESS_VECTOR.VALUE * ACCESS_COMPLEXITY.VALUE * AUTHENTICATION.VALUE;
         score = ((0.6*impact)+(0.4*exploitability)-1.5)*f;
 
         return score;
@@ -388,7 +420,7 @@ public class CVSSElement {
             throw e;
         }
 
-        double score = baseScore* EXPLOITABILITY *REMEDIATION_LEVEL*REPORT_CONFIDENCE;
+        double score = baseScore * EXPLOITABILITY.VALUE * REMEDIATION_LEVEL.VALUE * REPORT_CONFIDENCE.VALUE;
 
         return score;
     }
@@ -404,18 +436,18 @@ public class CVSSElement {
             throw e;
         }
 
-        double adjustedImpact = Math.min(10, 10.41*(1-(1-CONFIDENTIALITY_IMPACT*CONFIDENTIALITY_REQUIREMENT)*
-                                                      (1-INTEGRITY_IMPACT*INTEGRITY_REQUIREMENT)*
-                                                      (1-AVAILABILITY_IMPACT*AVAILABILITY_REQUIREMENT)));
+        double adjustedImpact = Math.min(10, 10.41*(1-(1-CONFIDENTIALITY_IMPACT.VALUE * CONFIDENTIALITY_REQUIREMENT.VALUE)*
+                                                      (1-INTEGRITY_IMPACT.VALUE * INTEGRITY_REQUIREMENT.VALUE)*
+                                                      (1-AVAILABILITY_IMPACT.VALUE * AVAILABILITY_REQUIREMENT.VALUE)));
         double f;
         if (adjustedImpact == 0) f = 0; else f = 1.176;
-        double exploitability = 20*ACCESS_VECTOR*ACCESS_COMPLEXITY*AUTHENTICATION;
+        double exploitability = 20 * ACCESS_VECTOR.VALUE * ACCESS_COMPLEXITY.VALUE * AUTHENTICATION.VALUE;
 
         double adjustedBase = ((0.6*adjustedImpact)+(0.4*exploitability)-1.5)*f;
 
-        double adjustedTemporal = adjustedBase* EXPLOITABILITY *REMEDIATION_LEVEL*REPORT_CONFIDENCE;
+        double adjustedTemporal = adjustedBase * EXPLOITABILITY.VALUE * REMEDIATION_LEVEL.VALUE * REPORT_CONFIDENCE.VALUE;
 
-        double score = (adjustedTemporal+(10-adjustedTemporal)*COLLATERAL_DAMAGE)*TARGET_DISTRIBUTION;
+        double score = (adjustedTemporal+(10-adjustedTemporal)*COLLATERAL_DAMAGE.VALUE)*TARGET_DISTRIBUTION.VALUE;
 
         return score;
     }
@@ -459,46 +491,46 @@ public class CVSSElement {
 
         String vector = "";
 
-        if (ACCESS_VECTOR == ACCESS_VECTOR_REQUIRES_LOCAL_ACCESS)
+        if (ACCESS_VECTOR.ID == ACCESS_VECTOR_REQUIRES_LOCAL_ACCESS.ID)
             vector += "AV:L/";
-        else if (ACCESS_VECTOR == ACCESS_VECTOR_ADJACENT_NETWORK_ACCESSIBLE)
+        if (ACCESS_VECTOR.ID == ACCESS_VECTOR_ADJACENT_NETWORK_ACCESSIBLE.ID)
             vector += "AV:A/";
-        else if (ACCESS_VECTOR == ACCESS_VECTOR_NETWORK_ACCESSIBLE)
+        if (ACCESS_VECTOR.ID == ACCESS_VECTOR_NETWORK_ACCESSIBLE.ID)
             vector += "AV:N/";
 
-        if (ACCESS_COMPLEXITY == ACCESS_COMPLEXITY_LOW)
+        if (ACCESS_COMPLEXITY.ID == ACCESS_COMPLEXITY_LOW.ID)
             vector += "AC:L/";
-        else if (ACCESS_COMPLEXITY == ACCESS_COMPLEXITY_MEDIUM)
+        if (ACCESS_COMPLEXITY.ID == ACCESS_COMPLEXITY_MEDIUM.ID)
             vector += "AC:M/";
-        else if (ACCESS_COMPLEXITY == ACCESS_COMPLEXITY_HIGH)
+        if (ACCESS_COMPLEXITY.ID == ACCESS_COMPLEXITY_HIGH.ID)
             vector += "AC:H/";
 
-        if (AUTHENTICATION == AUTHENTICATION_REQUIRES_NO_AUTHENTICATION)
+        if (AUTHENTICATION.ID == AUTHENTICATION_REQUIRES_NO_AUTHENTICATION.ID)
             vector += "Au:N/";
-        else if (AUTHENTICATION == AUTHENTICATION_REQUIRES_SINGLE_INSTANCE)
+        if (AUTHENTICATION.ID == AUTHENTICATION_REQUIRES_SINGLE_INSTANCE.ID)
             vector += "Au:S/";
-        else if (AUTHENTICATION == AUTHENTICATION_REQUIRES_MULTIPLE_INSTANCES)
+        if (AUTHENTICATION.ID == AUTHENTICATION_REQUIRES_MULTIPLE_INSTANCES.ID)
             vector += "Au:M/";
 
-        if (CONFIDENTIALITY_IMPACT == CONFIDENTIALITY_IMPACT_NONE)
+        if (CONFIDENTIALITY_IMPACT.ID == CONFIDENTIALITY_IMPACT_NONE.ID)
             vector += "C:N/";
-        else if (CONFIDENTIALITY_IMPACT == CONFIDENTIALITY_IMPACT_PARTIAL)
+        if (CONFIDENTIALITY_IMPACT.ID == CONFIDENTIALITY_IMPACT_PARTIAL.ID)
             vector += "C:P/";
-        else if (CONFIDENTIALITY_IMPACT == CONFIDENTIALITY_IMPACT_COMPLETE)
+        if (CONFIDENTIALITY_IMPACT.ID == CONFIDENTIALITY_IMPACT_COMPLETE.ID)
             vector += "C:C/";
 
-        if (INTEGRITY_IMPACT == INTEGRITY_IMPACT_NONE)
+        if (INTEGRITY_IMPACT.ID == INTEGRITY_IMPACT_NONE.ID)
             vector += "I:N/";
-        else if (INTEGRITY_IMPACT == INTEGRITY_IMPACT_PARTIAL)
+        if (INTEGRITY_IMPACT.ID == INTEGRITY_IMPACT_PARTIAL.ID)
             vector += "I:P/";
-        else if (INTEGRITY_IMPACT == INTEGRITY_IMPACT_COMPLETE)
+        if (INTEGRITY_IMPACT.ID == INTEGRITY_IMPACT_COMPLETE.ID)
             vector += "I:C/";
 
-        if (AVAILABILITY_IMPACT == AVAILABILITY_IMPACT_NONE)
+        if (AVAILABILITY_IMPACT.ID == AVAILABILITY_IMPACT_NONE.ID)
             vector += "A:N";
-        else if (AVAILABILITY_IMPACT == AVAILABILITY_IMPACT_PARTIAL)
+        if (AVAILABILITY_IMPACT.ID == AVAILABILITY_IMPACT_PARTIAL.ID)
             vector += "A:P";
-        else if (AVAILABILITY_IMPACT == AVAILABILITY_IMPACT_COMPLETE)
+        if (AVAILABILITY_IMPACT.ID == AVAILABILITY_IMPACT_COMPLETE.ID)
             vector += "A:C";
 
         return vector;
@@ -517,35 +549,35 @@ public class CVSSElement {
 
         String vector = "";
 
-        if (EXPLOITABILITY == EXPLOITABILITY_UNPROVEN)
+        if (EXPLOITABILITY.ID == EXPLOITABILITY_UNPROVEN.ID)
             vector += "E:U/";
-        else if (EXPLOITABILITY == EXPLOITABILITY_PROOF_OF_CONCEPT)
+        if (EXPLOITABILITY.ID == EXPLOITABILITY_PROOF_OF_CONCEPT.ID)
             vector += "E:POC/";
-        else if (EXPLOITABILITY == EXPLOITABILITY_FUNCTIONAL)
+        if (EXPLOITABILITY.ID == EXPLOITABILITY_FUNCTIONAL.ID)
             vector += "E:F/";
-        else if (EXPLOITABILITY == EXPLOITABILITY_HIGH)
+        if (EXPLOITABILITY.ID == EXPLOITABILITY_HIGH.ID)
             vector += "E:H/";
-        else if (EXPLOITABILITY == EXPLOITABILITY_NOT_DEFINED)
+        if (EXPLOITABILITY.ID == EXPLOITABILITY_NOT_DEFINED.ID)
             vector += "E:ND/";
 
-        if (REMEDIATION_LEVEL == REMEDIATION_LEVEL_OFFICIAL_FIX)
+        if (REMEDIATION_LEVEL.ID == REMEDIATION_LEVEL_OFFICIAL_FIX.ID)
             vector += "RL:OF/";
-        else if (REMEDIATION_LEVEL == REMEDIATION_LEVEL_TEMPORARY_FIX)
+        if (REMEDIATION_LEVEL.ID == REMEDIATION_LEVEL_TEMPORARY_FIX.ID)
             vector += "RL:TF/";
-        else if (REMEDIATION_LEVEL == REMEDIATION_LEVEL_WORKAROUND)
+        if (REMEDIATION_LEVEL.ID == REMEDIATION_LEVEL_WORKAROUND.ID)
             vector += "RL:W/";
-        else if (REMEDIATION_LEVEL == REMEDIATION_LEVEL_UNAVAILABLE)
+        if (REMEDIATION_LEVEL.ID == REMEDIATION_LEVEL_UNAVAILABLE.ID)
             vector += "RL:U/";
-        else if (REMEDIATION_LEVEL == REMEDIATION_LEVEL_NOT_DEFINED)
+        if (REMEDIATION_LEVEL.ID == REMEDIATION_LEVEL_NOT_DEFINED.ID)
             vector += "RL:ND/";
 
-        if (REPORT_CONFIDENCE == REPORT_CONFIDENCE_UNCONFIRMED)
+        if (REPORT_CONFIDENCE.ID == REPORT_CONFIDENCE_UNCONFIRMED.ID)
             vector += "RC:UC";
-        else if (REPORT_CONFIDENCE == REPORT_CONFIDENCE_UNCORROBORATED)
+        if (REPORT_CONFIDENCE.ID == REPORT_CONFIDENCE_UNCORROBORATED.ID)
             vector += "RC:UR";
-        else if (REPORT_CONFIDENCE == REPORT_CONFIDENCE_CONFIRMED)
+        if (REPORT_CONFIDENCE.ID == REPORT_CONFIDENCE_CONFIRMED.ID)
             vector += "RC:C";
-        else if (REPORT_CONFIDENCE == REPORT_CONFIDENCE_NOT_DEFINED)
+        if (REPORT_CONFIDENCE.ID == REPORT_CONFIDENCE_NOT_DEFINED.ID)
             vector += "RC:ND";
 
         return vector;
@@ -564,55 +596,55 @@ public class CVSSElement {
 
         String vector = "";
 
-        if (COLLATERAL_DAMAGE == COLLATERAL_DAMAGE_NONE)
+        if (COLLATERAL_DAMAGE.ID == COLLATERAL_DAMAGE_NONE.ID)
             vector += "CDP:N/";
-        else if (COLLATERAL_DAMAGE == COLLATERAL_DAMAGE_LOW)
+        if (COLLATERAL_DAMAGE.ID == COLLATERAL_DAMAGE_LOW.ID)
             vector += "CDP:L/";
-        else if (COLLATERAL_DAMAGE == COLLATERAL_DAMAGE_LOW_MEDIUM)
+        if (COLLATERAL_DAMAGE.ID == COLLATERAL_DAMAGE_LOW_MEDIUM.ID)
             vector += "CDP:LM/";
-        else if (COLLATERAL_DAMAGE == COLLATERAL_DAMAGE_MEDIUM_HIGH)
+        if (COLLATERAL_DAMAGE.ID == COLLATERAL_DAMAGE_MEDIUM_HIGH.ID)
             vector += "CDP:MH/";
-        else if (COLLATERAL_DAMAGE == COLLATERAL_DAMAGE_HIGH)
+        if (COLLATERAL_DAMAGE.ID == COLLATERAL_DAMAGE_HIGH.ID)
             vector += "CDP:H/";
-        else if (COLLATERAL_DAMAGE == COLLATERAL_DAMAGE_NOT_DEFINED)
+        if (COLLATERAL_DAMAGE.ID == COLLATERAL_DAMAGE_NOT_DEFINED.ID)
             vector += "CDP:ND/";
 
-        if (TARGET_DISTRIBUTION == TARGET_DISTRIBUTION_NONE)
+        if (TARGET_DISTRIBUTION.ID == TARGET_DISTRIBUTION_NONE.ID)
             vector += "TD:N/";
-        else if (TARGET_DISTRIBUTION == TARGET_DISTRIBUTION_LOW)
+        if (TARGET_DISTRIBUTION.ID == TARGET_DISTRIBUTION_LOW.ID)
             vector += "TD:L/";
-        else if (TARGET_DISTRIBUTION == TARGET_DISTRIBUTION_MEDIUM)
+        if (TARGET_DISTRIBUTION.ID == TARGET_DISTRIBUTION_MEDIUM.ID)
             vector += "TD:M/";
-        else if (TARGET_DISTRIBUTION == TARGET_DISTRIBUTION_HIGH)
+        if (TARGET_DISTRIBUTION.ID == TARGET_DISTRIBUTION_HIGH.ID)
             vector += "TD:H/";
-        else if (TARGET_DISTRIBUTION == TARGET_DISTRIBUTION_NOT_DEFINED)
+        if (TARGET_DISTRIBUTION.ID == TARGET_DISTRIBUTION_NOT_DEFINED.ID)
             vector += "TD:ND/";
 
-        if (CONFIDENTIALITY_REQUIREMENT == CONFIDENTIALITY_REQUIREMENT_LOW)
+        if (CONFIDENTIALITY_REQUIREMENT.ID == CONFIDENTIALITY_REQUIREMENT_LOW.ID)
             vector += "CR:L/";
-        else if (CONFIDENTIALITY_REQUIREMENT == CONFIDENTIALITY_REQUIREMENT_MEDIUM)
+        if (CONFIDENTIALITY_REQUIREMENT.ID == CONFIDENTIALITY_REQUIREMENT_MEDIUM.ID)
             vector += "CR:M/";
-        else if (CONFIDENTIALITY_REQUIREMENT == CONFIDENTIALITY_REQUIREMENT_HIGH)
+        if (CONFIDENTIALITY_REQUIREMENT.ID == CONFIDENTIALITY_REQUIREMENT_HIGH.ID)
             vector += "CR:H/";
-        else if (CONFIDENTIALITY_REQUIREMENT == CONFIDENTIALITY_REQUIREMENT_NOT_DEFINED)
+        if (CONFIDENTIALITY_REQUIREMENT.ID == CONFIDENTIALITY_REQUIREMENT_NOT_DEFINED.ID)
             vector += "CR:ND/";
 
-        if (INTEGRITY_REQUIREMENT == INTEGRITY_REQUIREMENT_LOW)
+        if (INTEGRITY_REQUIREMENT.ID == INTEGRITY_REQUIREMENT_LOW.ID)
             vector += "IR:L/";
-        else if (INTEGRITY_REQUIREMENT == INTEGRITY_REQUIREMENT_MEDIUM)
+        if (INTEGRITY_REQUIREMENT.ID == INTEGRITY_REQUIREMENT_MEDIUM.ID)
             vector += "IR:M/";
-        else if (INTEGRITY_REQUIREMENT == INTEGRITY_REQUIREMENT_HIGH)
+        if (INTEGRITY_REQUIREMENT.ID == INTEGRITY_REQUIREMENT_HIGH.ID)
             vector += "IR:H/";
-        else if (INTEGRITY_REQUIREMENT == INTEGRITY_REQUIREMENT_NOT_DEFINED)
+        if (INTEGRITY_REQUIREMENT.ID == INTEGRITY_REQUIREMENT_NOT_DEFINED.ID)
             vector += "IR:ND/";
 
-        if (AVAILABILITY_REQUIREMENT == AVAILABILITY_REQUIREMENT_LOW)
+        if (AVAILABILITY_REQUIREMENT.ID == AVAILABILITY_REQUIREMENT_LOW.ID)
             vector += "AR:L";
-        else if (AVAILABILITY_REQUIREMENT == AVAILABILITY_REQUIREMENT_MEDIUM)
+        if (AVAILABILITY_REQUIREMENT.ID == AVAILABILITY_REQUIREMENT_MEDIUM.ID)
             vector += "AR:M";
-        else if (AVAILABILITY_REQUIREMENT == AVAILABILITY_REQUIREMENT_HIGH)
+        if (AVAILABILITY_REQUIREMENT.ID == AVAILABILITY_REQUIREMENT_HIGH.ID)
             vector += "AR:H";
-        else if (AVAILABILITY_REQUIREMENT == AVAILABILITY_REQUIREMENT_NOT_DEFINED)
+        if (AVAILABILITY_REQUIREMENT.ID == AVAILABILITY_REQUIREMENT_NOT_DEFINED.ID)
             vector += "AR:ND";
 
         return vector;
