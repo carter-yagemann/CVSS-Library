@@ -28,8 +28,6 @@
 
 package org.yagemann.cvss;
 
-import java.net.IDN;
-
 public class CVSSElement {
 
     /**
